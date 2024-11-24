@@ -36,7 +36,7 @@ const INITIAL_SUGGESTIONS = [
 
 export function ChatBox() {
   const pathname = usePathname();
-  const [key, setKey] = useState(0); 
+  const [key, setKey] = useState(0);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ export function ChatBox() {
 
   useEffect(() => {
     setMounted(true);
-    setKey((prev) => prev + 1); 
+    setKey((prev) => prev + 1);
     return () => setMounted(false);
   }, [pathname]);
 
@@ -61,7 +61,6 @@ export function ChatBox() {
       });
     }
   }, [messages]);
-
 
   const renderMessage = (message) => {
     if (message.role === "assistant") {
@@ -183,7 +182,7 @@ export function ChatBox() {
 
   return (
     <motion.div
-      key={key} 
+      key={key}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -260,7 +259,22 @@ export function ChatBox() {
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="flex items-start space-x-2">
-                    <div className="p-2 rounded-full bg-secondary">🤖</div>
+                    <div className="p-2 rounded-full bg-secondary">
+                      <Image
+                        src="/ceo.png"
+                        alt="ceo-no-bg"
+                        width={48}
+                        height={48}
+                        className="object-contain scale-[1.2] pt-1 transition-transform duration-200 group-hover:scale-[1.3]"
+                        quality={100}
+                        sizes="(max-width: 48px) 100vw, 48px"
+                        style={{
+                          objectFit: "cover",
+                          transform: "translateZ(0)",
+                        }}
+                        priority
+                      />
+                    </div>
                     <div className="rounded-lg p-3 bg-secondary/50">
                       <div className="flex space-x-1">
                         <div className="w-2 h-2 bg-current rounded-full animate-bounce" />
