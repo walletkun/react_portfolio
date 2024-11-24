@@ -16,7 +16,7 @@ export default function ProjectsPage() {
           Projects
         </h1>
         <p className="text-xl font-sans text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Here are some of the projects I've worked on. Click on a project to
+          Here are some of the projects I&apos;ve worked on. Click on a project to
           learn more about it!
         </p>
       </div>
