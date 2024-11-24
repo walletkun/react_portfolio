@@ -220,7 +220,7 @@ export function ChatBox() {
               Interactive Portfolio Guide
             </h2>
             <p className="text-muted-foreground font-sans text-sm">
-              Let's explore my work together
+              Let&apos;s explore my work together
             </p>
           </div>
         </div>

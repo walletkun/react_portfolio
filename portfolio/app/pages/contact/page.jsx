@@ -69,7 +69,7 @@ export default function ContactPage() {
       toast({
         variant: "default",
         title: "Success!",
-        description: "Your message has been sent. I'll get back to you soon!",
+        description: "Your message has been sent. I&apost;ll get back to you soon!",
         duration: 5000,
       });
 
@@ -137,7 +137,7 @@ export default function ContactPage() {
                     transition={{ delay: 0.5 }}
                     className="text-gray-600 dark:text-gray-300 font-sans"
                   >
-                    Thank you for reaching out. I'll get back to you soon!
+                    Thank you for reaching out. I&apos;ll get back to you soon!
                   </motion.p>
                 </div>
               </motion.div>

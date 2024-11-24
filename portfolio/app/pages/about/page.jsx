@@ -45,7 +45,7 @@ export default function AboutMePage() {
           </div>
           <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-gray-900 dark:text-white">
-              Hi! I'm Fei
+              Hi! I&apos;m Fei
             </h1>
             <p className="text-xl font-sans text-gray-600 dark:text-gray-300 leading-relaxed">
               A passionate software engineer with a strong interest in the field
@@ -64,7 +64,7 @@ export default function AboutMePage() {
           <Card className="bg-white dark:bg-gray-800">
             <CardContent className="p-6">
               <p className="text-lg font-sans text-gray-600 dark:text-gray-300 leading-relaxed">
-                I am a senior at Brooklyn College pursuing a bachelor's degree
+                I am a senior at Brooklyn College pursuing a bachelor&apos;s degree
                 in Computer Science with a minor in Data Science. Currently, I
                 am enrolled in the CUNY Tech Prep (CTP) fellowship, a program
                 dedicated to guiding CUNY students in developing technical and
