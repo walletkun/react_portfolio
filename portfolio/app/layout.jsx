@@ -23,11 +23,11 @@ const raleway = Raleway({
 });
 
 export const metadata = {
-  title: "Fei Lin - Full-Stack Developer",
+  title: "Fei Lin - Software Engineer",
   description:
     "Welcome to Fei Lin's portfolio! Explore my work as a software engineer, blending full-stack development with data-driven solutions.",
   openGraph: {
-    title: "Fei Lin - Full-Stack Developer",
+    title: "Fei Lin - Software Engineer",
     description: "Crafting digital experiences with purpose.",
     url: "https://walletkun.com",
     siteName: "Fei Lin Portfolio",
@@ -44,7 +44,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fei Lin - Full-Stack Developer",
+    title: "Fei Lin - Software Engineer",
     description: "Crafting digital experiences with purpose.",
     images: ["/social_preview.png"],
   },
@@ -54,7 +54,22 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/ceo.png" />
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#ffffff" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
           name="description"
