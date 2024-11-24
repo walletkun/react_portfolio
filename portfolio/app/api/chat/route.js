@@ -47,7 +47,7 @@ function parseProjectContent(content) {
         i < lines.length &&
         !lines[i].startsWith("Tech Stack:") &&
         !lines[i].startsWith("Time Frame:") &&
-        !lines[i].startsWith("GitHub:")
+        !lines[i].startsWith("Github:")
       ) {
         if (lines[i]) description.push(lines[i]);
         i++;
@@ -58,8 +58,8 @@ function parseProjectContent(content) {
       project.project_stack = line.replace("Tech Stack:", "").trim();
     } else if (line.startsWith("Time Frame:")) {
       project.project_time_frame = line.replace("Time Frame:", "").trim();
-    } else if(line.startsWith('GitHub:')) {
-      project.github_url = line.replace('GitHub:', '').trim();
+    } else if (line.startsWith("Github:")) {
+      project.github_url = line.replace("Github:", "").trim();
     }
   }
 
@@ -70,7 +70,7 @@ function parseProjectContent(content) {
       project.project_description || "No description available",
     project_stack: project.project_stack || "Technology stack not specified",
     project_time_frame: project.project_time_frame || "Timeline not specified",
-    project_github_url: project.github_url || "",
+    github_url: project.github_url || "",
   };
 }
 
@@ -90,8 +90,12 @@ export async function POST(req) {
     const { projects, generalInfo } = await getAllContent();
     const parsedProjects = projects
       .filter((item) => item.content && item.content.includes("Project:"))
-      .map((item) => parseProjectContent(item.content));
-
+      .map((item) => {
+        console.log("Raw project content:", item.content); // Debug raw content
+        const parsed = parseProjectContent(item.content);
+        console.log("Parsed project:", parsed); // Debug parsed result
+        return parsed;
+      });
     const chatModel = new ChatOpenAI({
       temperature: 0.7,
       modelName: "gpt-4o-mini",
@@ -114,14 +118,19 @@ export async function POST(req) {
          - If asked "who is Fei?": Share a friendly, professional overview focusing on Fei's role as a developer and their key interests in technology. Don't give an introduction about yourself.
          - If asked "What is Fei up to?" : Share that Fei is currently on his way to master TypeScript and building ML projects in CTP. And will use that in his future projects.
         
-      2. For Project Queries:
-         - Respond in this format:
-         {{"type": "projects", "content": {{
-           "message": "<write a friendly, conversational intro about the relevant projects>",
-           "projects": [<Select up to 3 most relevant projects>],
-           "tech_stack": "[<mention the tech stack used>]",
-           "link": {{"url": "/pages/projects", "text": "View all projects"}}
-         }}}}
+     2. For Project Queries:
+   - Respond in this format AND ALWAYS INCLUDE THE EXACT PROJECT DATA AS PROVIDED:
+   {{"type": "projects", "content": {{
+     "message": "<write a friendly, conversational intro about the relevant projects>",
+     "projects": <COPY THE EXACT PROJECT OBJECTS FROM THE PROVIDED DATA. DO NOT MODIFY OR OMIT ANY FIELDS>,
+     "link": {{"url": "/pages/projects", "text": "View all projects"}}
+   }}}}
+
+   IMPORTANT: 
+   - ALWAYS preserve all original project data exactly as provided
+   - DO NOT modify or summarize project descriptions
+   - DO NOT omit any fields
+   - Copy the exact project objects including description, tech stack, and github_url
 
       3. For Education/Background:
          - Be conversational and engaging
@@ -172,21 +181,58 @@ export async function POST(req) {
     try {
       parsedResponse = JSON.parse(response);
 
-      // Validate project response format
       if (
         parsedResponse.type === "projects" &&
         parsedResponse.content.projects
       ) {
+        console.log("Original projects:", parsedProjects);
+        console.log("AI response projects:", parsedResponse.content.projects);
+
         parsedResponse.content.projects = parsedResponse.content.projects.map(
-          (project) => ({
-            project_name: project.project_name || "Untitled Project",
-            project_description:
-              project.project_description || "No description available",
-            project_stack:
-              project.project_stack || "Technology stack not specified",
-            project_time_frame:
-              project.project_time_frame || "Timeline not specified",
-          })
+          (project) => {
+            // Find the original project by exact name match first
+            let originalProject = parsedProjects.find(
+              (p) => p.project_name === project.project_name
+            );
+
+            // If no exact match, try a fuzzy match
+            if (!originalProject) {
+              originalProject = parsedProjects.find(
+                (p) =>
+                  p.project_name
+                    .toLowerCase()
+                    .includes(project.project_name.toLowerCase()) ||
+                  project.project_name
+                    .toLowerCase()
+                    .includes(p.project_name.toLowerCase())
+              );
+            }
+
+            // Always use original project data if available
+            if (originalProject) {
+              return {
+                ...originalProject, // Use all original data first
+                ...project, // Override with AI response data only if it exists and isn't empty
+                // Force use original description and other fields
+                project_description: originalProject.project_description,
+                project_stack: originalProject.project_stack,
+                project_time_frame: originalProject.project_time_frame,
+                github_url: originalProject.github_url,
+              };
+            }
+
+            // Fallback if no match found
+            return {
+              ...project,
+              project_description:
+                project.project_description || "No description available",
+              project_stack:
+                project.project_stack || "Technology stack not specified",
+              project_time_frame:
+                project.project_time_frame || "Timeline not specified",
+              github_url: project.github_url || "",
+            };
+          }
         );
       }
     } catch (e) {

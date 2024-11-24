@@ -84,6 +84,7 @@ export function ChatBox() {
       }
 
       if (content.type === "projects") {
+        console.log("Projects from API: ", content.content.projects);
         return (
           <div className="space-y-4">
             {content.content.message && (
@@ -94,7 +95,19 @@ export function ChatBox() {
                 {content.content.projects.map((project, index) => (
                   <ProjectLink
                     key={`${project.project_name}-${index}`}
-                    project={project}
+                    project={{
+                      ...project,
+                      project_name: project.project_name || "Untitled Project",
+                      project_description:
+                        project.project_description ||
+                        "No description available",
+                      project_stack:
+                        project.project_stack ||
+                        "Technology stack not specified",
+                      project_time_frame:
+                        project.project_time_frame || "Timeline not specified",
+                      github_url: project.github_url || "",
+                    }}
                     onClick={(project) => setSelectedProject(project)}
                   />
                 ))}
@@ -156,6 +169,20 @@ export function ChatBox() {
 
       if (data.error) {
         throw new Error(data.error);
+      }
+
+      if (data.type === "projects" && data.content.projects) {
+        data.content.projects = data.content.projects.map((project) => ({
+          ...project,
+          project_name: project.project_name || "Untitled Project",
+          project_description:
+            project.project_description || "No description available",
+          project_stack:
+            project.project_stack || "Technology stack not specified",
+          project_time_frame:
+            project.project_time_frame || "Timeline not specified",
+          github_url: project.github_url || "",
+        }));
       }
 
       setMessages((prev) => [...prev, { role: "assistant", content: data }]);
