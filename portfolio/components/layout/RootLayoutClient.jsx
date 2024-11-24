@@ -7,7 +7,7 @@ import { useEffect, useState, useCallback } from "react";
 import gsap from "gsap";
 import { Footer } from "./Footer";
 
-const ANIMATION_DURATION = 2.5; // balanced duration
+const ANIMATION_DURATION = 1.85; 
 
 const PageLoader = () => {
   useEffect(() => {
@@ -18,7 +18,7 @@ const PageLoader = () => {
     });
 
     tl.to(".shape", {
-      duration: 0.3, // quick initial appearance
+      duration: 0.3, 
       scale: 1,
       opacity: 1,
       stagger: {
@@ -128,7 +128,7 @@ export default function RootLayoutClient({ children }) {
   const [navigationKey, setNavigationKey] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
-  // Handle initial load
+
   useEffect(() => {
     setShowContent(false);
     const loadingTimer = setTimeout(() => {
