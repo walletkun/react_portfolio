@@ -4,7 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Github, Linkedin, Mail, Computer, Loader2, CheckCircle} from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Computer,
+  Loader2,
+  CheckCircle,
+} from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
@@ -21,8 +28,8 @@ export default function ContactPage() {
     message: "",
   });
 
-  useEffect(()=> {
-    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_USER_ID);
+  useEffect(() => {
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
   }, []);
 
   const social_links = {
@@ -57,19 +64,29 @@ export default function ContactPage() {
     setIsLoading(true);
 
     try {
-      await emailjs.send(
+      // Add console.log to debug environment variables
+      console.log("Environment check:", {
+        hasServiceId: !!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        hasTemplateId: !!process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        hasPublicKey: !!process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+      });
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        reply_to: formData.email,
+      };
+
+      const result = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+        templateParams
       );
 
-      setIsSuccess(true);
+      console.log("EmailJS Response:", result);
 
+      setIsSuccess(true);
       toast({
         variant: "default",
         title: "Success!",
@@ -86,9 +103,11 @@ export default function ContactPage() {
         setIsSuccess(false);
       }, 2000);
     } catch (error) {
+      console.error("EmailJS Error:", error); // Add detailed error logging
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again later",
+        description:
+          error.message || "Failed to send message. Please try again later",
         variant: "destructive",
         duration: 5000,
       });
