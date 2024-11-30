@@ -1,4 +1,3 @@
-//This will be the embedding for the portfolio page
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import { createClient } from "@supabase/supabase-js";
@@ -31,84 +30,106 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-
 export async function createEmbeddings(portfolioData) {
-  const documents = [
-    //Projects - create separate embeddings for each projects
-    ...portfolioData.projects.map((project) => ({
-      pageContent: `
-                Project: ${project.project_name}
-                Description: ${project.project_description}
-                Tech Stack: ${project.project_stack}
-                Time Frame: ${project.project_time_frame}`,
-      metadata: {
-        type: "project",
-        name: project.project_name,
-        stack: project.project_stack,
-      },
-    })),
+  const documents = [];
 
-    //Experience - create separate embeddings for each experience
-    ...portfolioData.experience.map((experience) => ({
-      pageContent: `
-                Company: ${experience.company}
-                Position: ${experience.position}
-                Description: ${experience.description}`,
-      metadata: {
-        type: "experience",
-        company: experience.company,
-        position: experience.position,
-      },
-    })),
+  // Handle projects if they exist
+  if (portfolioData.projects) {
+    documents.push(
+      ...portfolioData.projects.map((project) => ({
+        pageContent: `
+        Project: ${project.project_name}
+        Description: ${project.project_description}
+        Tech Stack: ${project.project_stack}
+        Time Frame: ${project.project_time_frame}`,
+        metadata: {
+          type: "project",
+          name: project.project_name,
+          stack: project.project_stack,
+        },
+      }))
+    );
+  }
 
-    //Education - create separate embeddings for each education
-    ...portfolioData.education.map((education) => ({
-      pageContent: `
-                Institution: ${education.institution}
-                Degree: ${education.degree}
-                Graduation Year: ${education.graduation_year}
-                Courses Taken: ${education.courses_taken.join(", ")}`,
-      metadata: {
-        type: "education",
-        institution: education.institution,
-        degree: education.degree,
-      },
-    })),
+  // Handle experience if it exists
+  if (portfolioData.experience) {
+    documents.push(
+      ...portfolioData.experience.map((experience) => ({
+        pageContent: `
+        Company: ${experience.company}
+        Position: ${experience.position}
+        Description: ${experience.description}`,
+        metadata: {
+          type: "experience",
+          company: experience.company,
+          position: experience.position,
+        },
+      }))
+    );
+  }
 
-    //Technical Skills - create a single embedding for all technical skills
-    {
+  // Handle education if it exists
+  if (portfolioData.education) {
+    documents.push(
+      ...portfolioData.education.map((education) => ({
+        pageContent: `
+        Institution: ${education.institution}
+        Degree: ${education.degree}
+        Graduation Year: ${education.graduation_year}
+        Courses Taken: ${education.courses_taken.join(", ")}`,
+        metadata: {
+          type: "education",
+          institution: education.institution,
+          degree: education.degree,
+        },
+      }))
+    );
+  }
+
+  // Handle technical skills if they exist
+  if (portfolioData.technical_skills) {
+    documents.push({
       pageContent: `
-                Languages: ${portfolioData.technical_skills.languages.join(
-                  ", "
-                )}
-                Frameworks: ${portfolioData.technical_skills.frameworks.join(
-                  ", "
-                )}
-                Libraries: ${portfolioData.technical_skills.libraries.join(
-                  ", "
-                )}`,
+        Languages: ${portfolioData.technical_skills.languages.join(", ")}
+        Frameworks: ${portfolioData.technical_skills.frameworks.join(", ")}
+        Libraries: ${portfolioData.technical_skills.libraries.join(", ")}`,
       metadata: {
         type: "technical_skills",
       },
-    },
-  ];
+    });
+  }
 
-  //Storing the documents into the vector database
-  await SupabaseVectorStore.fromDocuments(documents, embeddings, {
-    client: supabase,
-    tableName: "portfolio_embeddings",
-    queryName: "match_documents",
-    //Add meta data columns for better querying
-    metadataColumns: [
-      "type",
-      "name",
-      "stack",
-      "company",
-      "position",
-      "institution",
-      "degree",
-    ],
-  });
+  // Handle social links if they exist
+  if (portfolioData.social_links) {
+    documents.push({
+      pageContent: `
+        GitHub: ${portfolioData.social_links.github}
+        LinkedIn: ${portfolioData.social_links.linkedin}
+        Email: ${portfolioData.social_links.email}`,
+      metadata: {
+        type: "social_links",
+      },
+    });
+  }
+
+  if (documents.length > 0) {
+    await SupabaseVectorStore.fromDocuments(documents, embeddings, {
+      client: supabase,
+      tableName: "portfolio_embeddings",
+      queryName: "match_documents",
+      metadataColumns: [
+        "type",
+        "name",
+        "stack",
+        "company",
+        "position",
+        "institution",
+        "degree",
+      ],
+    });
+  }
+
+  return { success: true, documentCount: documents.length };
 }
 
 async function createMatchFunction(supabase) {
@@ -164,6 +185,14 @@ export async function searchEmbeddings(query) {
       filterType = "education";
     } else if (queryLower.includes("skill") || queryLower.includes("tech")) {
       filterType = "technical_skills";
+    } else if (
+      queryLower.includes("contact") ||
+      queryLower.includes("social") ||
+      queryLower.includes("github") ||
+      queryLower.includes("linkedin") ||
+      queryLower.includes("email")
+    ) {
+      filterType = "social_links";
     }
 
     // Direct database query when filter type is known

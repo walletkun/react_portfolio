@@ -51,7 +51,6 @@ export function Header({ handleNavigation }) {
           <h1 className="text-4xl font-accent font-bold text-accent">Fei.</h1>
         </button>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
           {navigationItems.map(({ path, label }) => (
             <NavItem
@@ -66,7 +65,6 @@ export function Header({ handleNavigation }) {
           ))}
         </div>
 
-        {/* Mobile Navigation */}
         <div className="md:hidden">
           <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <DropdownMenuTrigger asChild>

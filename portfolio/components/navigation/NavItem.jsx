@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export function NavItem({ href, children, isActive, onClick }) {
+export function NavItem({ href, children, isActive, onClick, disabled }) {
   return (
     <Link
       href={href}
@@ -22,8 +22,9 @@ export function NavItem({ href, children, isActive, onClick }) {
         ${
           isActive
             ? "bg-primary text-primary-foreground shadow-sm"
-            : "hover:bg-accent hover:text-accent-foreground"
+            : "hover:bg-slate-700 hover:text-slate-50"
         }
+        ${disabled ? "pointer-events-none opacity-50" : ""}
       `}
     >
       {children}

@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Github, Linkedin, Mail, Computer, Loader2, CheckCircle} from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import emailjs from "@emailjs/browser";
 
@@ -20,6 +20,10 @@ export default function ContactPage() {
     email: "",
     message: "",
   });
+
+  useEffect(()=> {
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_USER_ID);
+  }, []);
 
   const social_links = {
     github: {
@@ -69,7 +73,7 @@ export default function ContactPage() {
       toast({
         variant: "default",
         title: "Success!",
-        description: "Your message has been sent. I&apost;ll get back to you soon!",
+        description: "Your message has been sent. I'll get back to you soon!",
         duration: 5000,
       });
 

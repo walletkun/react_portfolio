@@ -20,9 +20,14 @@ async function getAllContent() {
     .select("content, metadata")
     .neq("metadata->>type", "project");
 
+  const { data: socialLinks } = await supabase
+    .from("portfolio_embeddings")
+    .select("content, metdata")
+    .eq("metadata->>type", "social_links");
   return {
     projects: projects || [],
     generalInfo: info || [],
+    socialLinks: socialLinks || [],
   };
 }
 
@@ -35,6 +40,7 @@ function parseProjectContent(content) {
     project_time_frame: "",
     github_url: "",
   };
+
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -74,6 +80,24 @@ function parseProjectContent(content) {
   };
 }
 
+ function parseSocialLinks(content) {
+   const lines = content.split("\n").map((line) => line.trim());
+   const links = {};
+
+   lines.forEach((line) => {
+     if (line.startsWith("GitHub:")) {
+       links.github = line.replace("GitHub:", "").trim();
+     } else if (line.startsWith("LinkedIn:")) {
+       links.linkedin = line.replace("LinkedIn:", "").trim();
+     } else if (line.startsWith("Devpost:")) {
+       links.devpost = line.replace("Devpost:", "").trim();
+     } else if (line.startsWith("Email:")) {
+       links.email = line.replace("Email:", "").trim();
+     }
+   });
+   return links;
+ }
+
 export async function POST(req) {
   try {
     const { messages } = await req.json();
@@ -87,15 +111,24 @@ export async function POST(req) {
     const lastMessage = messages[messages.length - 1];
     const query = lastMessage.content;
 
-    const { projects, generalInfo } = await getAllContent();
+    const { projects, generalInfo, socialLinks } = await getAllContent();
     const parsedProjects = projects
       .filter((item) => item.content && item.content.includes("Project:"))
       .map((item) => {
-        console.log("Raw project content:", item.content); // Debug raw content
+        console.log("Raw project content:", item.content);
         const parsed = parseProjectContent(item.content);
-        console.log("Parsed project:", parsed); // Debug parsed result
+        console.log("Parsed project:", parsed);
         return parsed;
       });
+
+    const parsedSocialLinks =
+      socialLinks.length > 0
+        ? parsedSocialLinks[0]
+        : {
+            github: "https://github.com/walletkun",
+            linkedin: "https://www.linkedin.com/in/fei-lincs/",
+            devpost: "https://devpost.com/walletkun",
+          };
     const chatModel = new ChatOpenAI({
       temperature: 0.7,
       modelName: "gpt-4o-mini",
@@ -126,13 +159,24 @@ export async function POST(req) {
      "link": {{"url": "/pages/projects", "text": "View all projects"}}
    }}}}
 
+         3. For Social/Contact Queries:
+         - If asked about social media, contact, or professional profiles, respond in this format:
+         {{"type": "social_links", "content": {{
+           "message": "<write a friendly message about connecting with Fei>",
+           "links": {{
+             "github": "https://github.com/walletkun",
+             "linkedin": "https://linkedin.com/in/fei-lincs",
+             "devpost": "https://devpost.com/walletkun"
+           }}
+         }}}}
+
    IMPORTANT: 
    - ALWAYS preserve all original project data exactly as provided
    - DO NOT modify or summarize project descriptions
    - DO NOT omit any fields
    - Copy the exact project objects including description, tech stack, and github_url
 
-      3. For Education/Background:
+      4. For Education/Background:
          - Be conversational and engaging
          - Focus on achievements and learning experiences
          - Share relevant academic highlights and learning journey
@@ -142,20 +186,21 @@ export async function POST(req) {
            "link": {{"url": "/pages/about", "text": "Learn more about Fei"}}
          }}}}
 
-      4. For Current Status/Activities:
+      5. For Current Status/Activities:
          - Share professional goals and current focus
          - Mention relevant ongoing projects or learning
          - Be engaging but maintain privacy
          - Use the same text_with_link format
 
-      5. For Technical Questions:
+      6. For Technical Questions:
          - Reference specific projects showing technical expertise
          - Explain technologies in a friendly, accessible way
          - Use projects format if showing specific examples
 
-      6. For Hobbies or interests:
+      7. For Hobbies or interests:
         - Share Fei's interests in technology, coding, and learning
         - Share that Fei Loves snowboarding
+        - Be conversational and engaging and add emojis for a friendly touch
 
       Privacy Rules:
       - Never share personal contact information
@@ -190,12 +235,10 @@ export async function POST(req) {
 
         parsedResponse.content.projects = parsedResponse.content.projects.map(
           (project) => {
-            // Find the original project by exact name match first
             let originalProject = parsedProjects.find(
               (p) => p.project_name === project.project_name
             );
 
-            // If no exact match, try a fuzzy match
             if (!originalProject) {
               originalProject = parsedProjects.find(
                 (p) =>
@@ -208,12 +251,10 @@ export async function POST(req) {
               );
             }
 
-            // Always use original project data if available
             if (originalProject) {
               return {
-                ...originalProject, // Use all original data first
-                ...project, // Override with AI response data only if it exists and isn't empty
-                // Force use original description and other fields
+                ...originalProject, 
+                ...project,
                 project_description: originalProject.project_description,
                 project_stack: originalProject.project_stack,
                 project_time_frame: originalProject.project_time_frame,
@@ -221,7 +262,6 @@ export async function POST(req) {
               };
             }
 
-            // Fallback if no match found
             return {
               ...project,
               project_description:

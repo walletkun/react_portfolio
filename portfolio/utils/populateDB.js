@@ -2,7 +2,6 @@ import { createEmbeddings } from "./embeddings.js";
 import * as dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
-
 import { createClient } from "@supabase/supabase-js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -13,7 +12,6 @@ dotenv.config({ path: resolve(__dirname, "../.env") });
 console.log("Environment check from populateDB:");
 console.log("OpenAI API Key exists:", !!process.env.OPENAI_API_KEY);
 console.log("OpenAI API Key length:", process.env.OPENAI_API_KEY?.length);
-
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -69,9 +67,7 @@ const portfolioData = {
         Worked in a team of 3 to develop an interactive customer support agent using Next.js, integrated a custom RAG pipeline using OpenAI and Pinecone that responds based on a company's knowledge base
         Collaborated with 3 Fellows to build and deploy a SaaS product that generates dynamic flashcards based on any topic using the OpenAI LLM, integrated a paywall and custom pricing plans using the Stripe API`,
     },
-    
   ],
-
   education: [
     {
       institution: `Brooklyn College - City University of New York`,
@@ -92,7 +88,6 @@ const portfolioData = {
       ],
     },
   ],
-
   technical_skills: {
     languages: [`Python`, `JavaScript`, `Java`, `SQL`, `HTML`, `CSS`],
     frameworks: [`React`, `Next.js`, `Flask`, `Springboot`, `Bootstrap`],
@@ -113,12 +108,40 @@ const portfolioData = {
       `LLama`,
       `Tableau`,
     ],
-    developer_tools: [`Git`, `GitHub`, `VS Code`, `Jupyter Notebook`, `Postman`],
-  }, 
+    developer_tools: [
+      `Git`,
+      `GitHub`,
+      `VS Code`,
+      `Jupyter Notebook`,
+      `Postman`,
+    ],
+  },
+  social_links: {
+    github: "https://github.com/walletkun",
+    linkedin: "https://linkedin.com/in/fei-lincs",
+    portfolio: "https://walletkun.com",
+    email: "feilinpersonal@gmail.com",
+  },
 };
 
-async function populateDataBase(){
-  try{
+async function checkExistingEntry(type, identifierField, identifierValue) {
+  const { data, error } = await supabase
+    .from("portfolio_embeddings")
+    .select("id")
+    .eq("type", type)
+    .eq(identifierField, identifierValue)
+    .single();
+
+  if (error && error.code !== "PGRST116") {
+    console.error(`Error checking for existing ${type}:`, error);
+    return null;
+  }
+
+  return data?.id;
+}
+
+async function populateDataBase() {
+  try {
     console.log("Creating embeddings...");
     console.log("Starting to populate database...");
 
@@ -128,16 +151,26 @@ async function populateDataBase(){
       experienceCount: portfolioData.experience.length,
       educationCount: portfolioData.education.length,
       hasSkills: !!portfolioData.technical_skills,
+      hasSocialLinks: !!portfolioData.social_links,
     });
 
-     if (!process.env.OPENAI_API_KEY) {
-       throw new Error(
-         "OpenAI API key not found. Please check your .env file."
-       );
-     }
-    //Call createEmbeddings with my portfolio data
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error("OpenAI API key not found. Please check your .env file.");
+    }
+
+    // Check for existing social links
+    const socialLinksExist = await checkExistingEntry(
+      "social_links",
+      "type",
+      "social_links"
+    );
+    if (socialLinksExist) {
+      console.log("Social links already exist in the database");
+    }
+
+    // Call createEmbeddings with portfolio data
     const result = await createEmbeddings(portfolioData);
-     console.log("Embedding creation result: " , result);
+    console.log("Embedding creation result:", result);
 
     console.log("Embeddings created successfully");
 
@@ -154,24 +187,20 @@ async function populateDataBase(){
         position,
         institution,
         degree`
-      ).order("id", { ascending: true });
+      )
+      .order("id", { ascending: true });
 
-     
-    if(error){
+    if (error) {
       console.error("Error querying the database", error);
-    }else{
+    } else {
       console.log("Database query result:", data);
     }
 
     console.log("Database populated successfully");
-  }
-  catch(error){
+  } catch (error) {
     console.error("Error creating embeddings", error);
   }
 }
-
-
-
 
 populateDataBase();
 
