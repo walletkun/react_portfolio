@@ -40,6 +40,22 @@ export const portfolioData = {
       project_time_frame: `September 2024 - Present`,
       github_url: "https://github.com/walletkun/churn_rate",
     },
+    {
+      project_name: `AI Hotdog Detector 2.0 - A Humor-Driven App to Detect Hotdogs`,
+      project_description: `Developed a humor-driven app that uses the Google Vision API to detect hotdogs and integrates OpenAI to generate creative narratives. 
+    Incorporated Supabase for user authentication (OAuth) and securely stored personalized AI-generated hotdog backstories. Designed an accessible and responsive UI 
+    using ShadCN, running and testing the app locally to ensure seamless functionality.`,
+      project_stack: `Next.js, React, Google Vision API, OpenAI, Supabase, ShadCN UI, OAuth, Tailwind CSS, SQL`,
+      project_time_frame: `November 2024 - December 2024`,
+      github_url: "https://github.com/walletkun/hotdog_detector",
+    },
+    {
+      project_name: `React Portfolio - Personal Portfolio with OpenAI Integration`,
+      project_description: `Developed a personal portfolio website using React and Next.js, integrating OpenAI to enhance content generation. The project showcases professional experiences and projects, providing an interactive platform for visitors.`,
+      project_stack: `React, Next.js, OpenAI, Tailwind CSS, ShadCN UI, Supabase, SQL`,
+      project_time_frame: `November 2024 - December 2024`,
+      github_url: "https://github.com/walletkun/react_portfolio",
+    },
   ],
 
   experience: [
