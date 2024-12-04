@@ -111,7 +111,7 @@ export default function AboutMePage() {
 
         <section className="mt-20 text-center">
           <Button size="lg" asChild className="font-sans">
-            <a href="/Nov_16_24.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/Dec_2_24.pdf" target="_blank" rel="noopener noreferrer">
               <FileText className="w-4 h-4"/>View Resume
             </a>
           </Button>
