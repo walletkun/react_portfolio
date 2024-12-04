@@ -10,9 +10,10 @@ import Image from "next/image";
 export default function AboutMePage() {
   const skills = {
     Languages: ["Python", "JavaScript", "Java", "C++", "SQL"],
-    Frontend: ["React", "Next.js", "Tailwind CSS", "Bootstrap", "Spring Boot"],
-    Backend: ["Node.js", "Express", "Django", "Flask"],
-    Databases: ["MongoDB", "PostgreSQL", "SQLite"],
+    Frontend: ["React", "Next.js", "Tailwind CSS", "Bootstrap", "HTML", "CSS"],
+    UI: ["Material-UI", "Chakra UI"],
+    Backend: ["Node.js", "Express.js", "Django", "Flask", "Spring Boot"],
+    Databases: ["MongoDB", "PostgreSQL", "SQLite", "Firebase", "Supabase"],
     Tools: [
       "Git",
       "Docker",
@@ -24,6 +25,7 @@ export default function AboutMePage() {
     ],
     "Data Science": ["Pandas", "NumPy", "Matplotlib"],
     "Machine Learning": ["Scikit-learn", "TensorFlow", "Keras"],
+    "Deep Learning": ["OpenCV", "CNN"],
   };
 
   return (

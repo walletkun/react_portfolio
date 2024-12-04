@@ -144,8 +144,6 @@ async function populateDataBase() {
   try {
     console.log("Creating embeddings...");
     console.log("Starting to populate database...");
-
-    // Log the portfolio data structure
     console.log("Portfolio data structure:", {
       projectsCount: portfolioData.projects.length,
       experienceCount: portfolioData.experience.length,
