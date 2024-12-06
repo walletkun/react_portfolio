@@ -64,10 +64,10 @@ walletkun.com
 # 📜 License
 This project is licensed under the MIT License. 
 
-#📬 Contact
+# 📬 Contact
 For any inquries, feel free to reach out via email or connect on social platforms:
-  - ``Website``: [walletkun.com](walletkun.com)
-  - ``Github``: You're at it 😊
-  - ``Devpost``: [devpost.com/walletkun](devpost/walletkun)
-  - ``Email``: [mailto:feilinpersonal@gmail.com](mailto:feilinpersonal@gmail.com)
+  - **``Website``**: [walletkun.com](walletkun.com)
+  - **``Github``**: You're at it 😊
+  - **``Devpost``**: [devpost.com/walletkun](devpost/walletkun)
+  - **``Email``**: [mailto:feilinpersonal@gmail.com](mailto:feilinpersonal@gmail.com)
 
