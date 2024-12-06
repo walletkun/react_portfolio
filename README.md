@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# React Portfolio
+Welcome to my portfolio! This project is a personal portfolio website designed to showcase my skills, projects, and experiences. Built with modern web technologies like ``React`` and ``Next.js``, this portfolio is a dynamic and responsive platform for professional branding and self-promotion
 
-## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 🌐 Hosted At
+```Bash
+walletkun.com
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 📖 Features
+ - ``Dynamic Portfolio``: Displays a collection of projects with details and live links.
+ - ``AI Integration``: Incorporates OpenAi's API for intelligent features such as content suggestions and conversational features for my personal experiences and projects.
+ - ``Fast Performance``: Leveraging ``Next.js`` for server side rendering (SSR) and static site generation (SSG).
+ - ``Responsive Design``: Ensures an optimal viewing experience across all devices for a polished aesthic
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# 🚀 Tech Stack
+ - ``Frontend``:
+       - ``React``
+       - ``Next.js``
+ - ``Styling``:
+       - ``ShadCN UI``
+       - ``Tailwind CSS``
+ - ``Backend``:
+       - ``API Integration with OpenAI``
+       - ``Javascript``
+ - ``Database``:
+       - ``Supabase``
+       - ``SQL``
+- ``Deployment``:
+       - ``Hosted`` on ``Vercel``
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# 📂 Project Structure
+  ```Bash
+  react_portfolio/
+  ├── components/       # Reusable UI components
+  ├── pages/            # Next.js routing and page components
+  ├── public/           # Static assets like images and icons
+  ├── styles/           # Styling files (CSS Modules, global styles)
+  ├── utils/            # Helper functions and utilities
+  └── README.md         # Project documentation
+  ```
 
-## Learn More
+# 🛠️ Setup and Installation
+1. ``Clone the repository``:
+    ```Bash
+    git clone https://github.com/walletkun/react_portfolio.git
+    cd react_portfolio
+    ```
+2. ```Install dependencies```:
+   ```Bash
+   npm install
+   ```
+3. ```Run the development server```:
+   ```Bash
+   npm run dev
+   ```
+4. Open http://localhost:3000 in your browser to see the site in action
 
-To learn more about Next.js, take a look at the following resources:
+# 🌟 Key Highlights
+1. ``Project Showcases``: Highlights top projects with details and links to live demos.
+2. ``AI-Powered Features``: Interactive AI-driven elements to engage visitors
+3. ``SEO Optimized``: Built wiht Next.js to enhance search engine visibility
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 📜 License
+This project is licensed under the MIT License. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#📬 Contact
+For any inquries, feel free to reach out via email or connect on social platforms:
+  - ``Website``: walletkun.com[walletkun.com]
+  - ``Github``: You're at it 😊
+  - ``Devpost``: devpost/walletkun[devpost.com/walletkun]
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
