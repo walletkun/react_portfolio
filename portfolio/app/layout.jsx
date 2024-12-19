@@ -2,6 +2,7 @@ import { Providers } from "@/components/providers/Providers";
 import { Outfit, Plus_Jakarta_Sans, Raleway } from "next/font/google";
 import RootLayoutClient from "@/components/layout/RootLayoutClient";
 import { Toaster } from "@/components/ui/toaster";
+import NeuralBackground from "@/components/layout/NeuralBackground";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
       >
         <Providers>
           <RootLayoutClient>
+            <NeuralBackground/>
             {children}
             <Toaster />
           </RootLayoutClient>

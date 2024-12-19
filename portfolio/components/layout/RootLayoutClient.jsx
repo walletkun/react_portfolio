@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import gsap from "gsap";
 import { Footer } from "./Footer";
+import NeuralBackground from "./NeuralBackground";
 
 const ANIMATION_DURATION = 1.85; 
 
@@ -150,8 +151,8 @@ export default function RootLayoutClient({ children }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <Header handleNavigation={handleNavigation} />
-
+      <NeuralBackground className='z-10'/>
+      <Header handleNavigation={handleNavigation} className='z-0'/>
       {/* Loader */}
       <AnimatePresence mode="wait">
         {isLoading && <PageLoader key={navigationKey} />}

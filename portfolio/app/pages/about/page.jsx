@@ -29,7 +29,7 @@ export default function AboutMePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
+    <div className="min-h-screen from-gray-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
       <main className="container mx-auto px-4 py-12 md:py-20">
         <div className="flex flex-col items-center md:flex-row md:items-start md:justify-between gap-12">
           <div className="w-full md:w-1/2 flex justify-center md:justify-start">

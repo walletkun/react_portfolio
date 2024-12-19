@@ -69,13 +69,13 @@ export function HomeContent() {
           animate="visible"
           exit="exit"
         >
-          <main className="flex-grow container mx-auto px-4 py-8">
+          <main className="flex-grow container mx-auto px-4 py-8 relative">
             <div className="max-w-4xl mx-auto">
               <div className="space-y-12 py-8 font-accent">
-                <motion.div variants={childVariants}>
+                <motion.div variants={childVariants} className="relative z-10">
                   <Welcome />
                 </motion.div>
-                <motion.div variants={childVariants}>
+                <motion.div variants={childVariants} className="relative z-50">
                   <ChatBox
                     key={`chatbox-${key}`}
                     onProjectSelect={setSelectedProject}
@@ -92,6 +92,7 @@ export function HomeContent() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50"
               >
                 <ProjectPreview
                   project={selectedProject}

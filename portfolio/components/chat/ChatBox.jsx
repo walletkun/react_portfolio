@@ -288,7 +288,7 @@ export function ChatBox() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
-      className="relative"
+      className="relative bg-white rounded-2xl"
     >
       <div
         className="rounded-xl border border-border p-8 space-y-6 bg-card/50 shadow-lg"

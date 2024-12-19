@@ -7,12 +7,21 @@
     --background: 210 40% 98%;
     --card: 0 0% 100%;
     --border: 220 13% 91%;
-    
-
     --input: 220 13% 91%;
     --primary: 221.2 83.2% 53.3%;
     --secondary: 210 40% 96.1%;
     --accent: 210 40% 96.1%;
+    
+    --foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --card-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -23,9 +32,25 @@
     --primary: 217.2 91.2% 59.8%;
     --secondary: 222 47% 15%;
     --accent: 216 34% 17%;
+    
+    --foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --card-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
   }
 }
 
+/* Neural Background styles */
+.neural-particle {
+  @apply absolute rounded-full bg-white opacity-30 transition-transform duration-300
+         hover:scale-150 hover:opacity-60;
+}
+
+/* Loader styles */
 .loader-container {
   transform-style: preserve-3d;
   perspective: 1000px;
@@ -40,16 +65,20 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0);
 }
 
-@keyframes glow {
-  0%, 100% {
-    filter: brightness(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
+/* Animation utilities */
+@layer components {
+  .card-hover {
+    @apply transition-all duration-300 
+           hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] 
+           hover:-translate-y-1 hover:bg-opacity-90;
   }
-  50% {
-    filter: brightness(1.2) drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+
+  .glass-effect {
+    @apply backdrop-blur-sm bg-white/5 rounded-lg border border-white/10;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r 
+           from-primary via-white to-primary;
   }
 }
-
-.shape svg {
-  animation: glow 2s ease-in-out infinite;
-}
-
