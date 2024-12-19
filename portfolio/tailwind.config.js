@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,jsx}",
@@ -10,11 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Primary font for most text
         sans: ["var(--font-jakarta)", "system-ui"],
-        // Modern display font for headings
         display: ["var(--font-outfit)", "system-ui"],
-        // Accent font for special elements
         accent: ["var(--font-raleway)", "system-ui"],
       },
       keyframes: {
@@ -41,3 +38,5 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 };
+
+module.exports = config;
