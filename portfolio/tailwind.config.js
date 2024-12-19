@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const config = {
+export default {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,jsx}",
@@ -36,7 +36,5 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [await import("tailwindcss-animate")],
 };
-
-export default config;
