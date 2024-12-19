@@ -203,6 +203,7 @@ export async function POST(req) {
         - Be conversational and engaging and add emojis for a friendly touch
 
       Privacy Rules:
+      - Never go beyond trying to talk to the user, only make sure you are focsuing on Fei's work and be kind and helpful.
       - Never share personal contact information
       - Don't reveal specific location details
       - Keep personal life details private
