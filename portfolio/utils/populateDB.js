@@ -21,6 +21,15 @@ const supabase = createClient(
 const portfolioData = {
   projects: [
     {
+      project_name: "Hotdog Detector 2.0",
+      project_description: `Developed a cutting-edge web application capable of determining whether an image contains a hotdog using advanced AI and machine learning techniques.
+        Leveraged the Google Vision API for image analysis and classification, integrating ShadCN for a sleek and modern UI design.
+        Utilized Next.js and React for the front-end framework and incorporated Supabase for robust user authentication and database management. 
+        Implemented OAuth registration for a seamless user experience.`,
+      project_stack: `React, Next.js, Supabase, Google Vision API, ShadCN`,
+      project_time_frame: `November 2024 - December 2024`,
+    },
+    {
       project_name: "CICERO - Your Personal AI Tutor",
       project_description: `Collaborated with a team of 3 to design a web application—an AI-based tutor capable of parsing files and utilizing vector database Pinecone to implement RAG to generate accurate answers.
             Utilized OpenAI and LLama models, along with JSON PDF parsing, to process user files and extract the necessary components requested by students.
