@@ -152,7 +152,7 @@ export default function RootLayoutClient({ children }) {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <NeuralBackground className='z-10'/>
-      <Header handleNavigation={handleNavigation} className='z-0'/>
+      <Header handleNavigation={handleNavigation} className='z-50'/>
       {/* Loader */}
       <AnimatePresence mode="wait">
         {isLoading && <PageLoader key={navigationKey} />}
