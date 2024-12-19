@@ -28,6 +28,7 @@ const portfolioData = {
         Implemented OAuth registration for a seamless user experience.`,
       project_stack: `React, Next.js, Supabase, Google Vision API, ShadCN`,
       project_time_frame: `November 2024 - December 2024`,
+      github_url: "https://github.com/walletkun/hotdog_detector",
     },
     {
       project_name: "CICERO - Your Personal AI Tutor",
