@@ -411,7 +411,7 @@ export function ChatBox() {
                 <ChatMessages
                   key={index}
                   message={message}
-                  renderMessage={renderMessage}
+                  setSelectedProject={setSelectedProject}
                 />
               ))}
               {isLoading && (

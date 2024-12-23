@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { TypewriterText } from "./TypewriterText";
 
-export function ChatMessages({ message, renderMessage }) {
+export function ChatMessages({ message, setSelectedProject }) {
   return (
     <div
       className={`flex ${
@@ -43,7 +44,14 @@ export function ChatMessages({ message, renderMessage }) {
               : "bg-secondary text-secondary-foreground font-sans"
           }`}
         >
-          {renderMessage(message)}
+          {message.role === "assistant" ? (
+            <TypewriterText
+              content={message.content}
+              onProjectClick={setSelectedProject}
+            />
+          ) : (
+            <div className="whitespace-pre-wrap">{message.content}</div>
+          )}
         </div>
       </div>
     </div>

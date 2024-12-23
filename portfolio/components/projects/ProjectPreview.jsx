@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { X, Maximize2, Minus, Github, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
 import { Button } from "../ui/button";
 
 export function ProjectPreview({ project, onClose }) {
