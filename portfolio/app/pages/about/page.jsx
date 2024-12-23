@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileText } from "lucide-react";
+import { SkillBadge } from "@/components/about/SkillBadge";
 import Image from "next/image";
 
 export default function AboutMePage() {
   const skills = {
     Languages: ["Python", "JavaScript", "Java", "C++", "SQL"],
     Frontend: ["React", "Next.js", "Tailwind CSS", "Bootstrap", "HTML", "CSS"],
-    UI: ["Material-UI", "Chakra UI"],
+    UI: ["Material-UI", "Chakra UI", "Shadcn UI"],
     Backend: ["Node.js", "Express.js", "Django", "Flask", "Spring Boot"],
     Databases: ["MongoDB", "PostgreSQL", "SQLite", "Firebase", "Supabase"],
     Tools: [
@@ -66,18 +67,18 @@ export default function AboutMePage() {
           <Card className="bg-white dark:bg-gray-800">
             <CardContent className="p-6">
               <p className="text-lg font-sans text-gray-600 dark:text-gray-300 leading-relaxed">
-                I am a senior at Brooklyn College pursuing a bachelor&apos;s degree
-                in Computer Science with a minor in Data Science. Currently, I
-                am enrolled in the CUNY Tech Prep (CTP) fellowship, a program
-                dedicated to guiding CUNY students in developing technical and
-                professional skills. In the data science track, I am actively
-                building projects that explore the intersection of data analysis
-                and application development. Simultaneously, with my primary
-                focus on full-stack development, I am creating projects that
-                reflect my passion for designing and implementing impactful,
-                user-centric solutions. This journey allows me to refine my
-                skills while bridging my interests in both software engineering
-                and data science.
+                I am a senior at Brooklyn College pursuing a bachelor&apos;s
+                degree in Computer Science with a minor in Data Science.
+                Currently, I am enrolled in the CUNY Tech Prep (CTP) fellowship,
+                a program dedicated to guiding CUNY students in developing
+                technical and professional skills. In the data science track, I
+                am actively building projects that explore the intersection of
+                data analysis and application development. Simultaneously, with
+                my primary focus on full-stack development, I am creating
+                projects that reflect my passion for designing and implementing
+                impactful, user-centric solutions. This journey allows me to
+                refine my skills while bridging my interests in both software
+                engineering and data science.
               </p>
             </CardContent>
           </Card>
@@ -96,13 +97,7 @@ export default function AboutMePage() {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {skillList.map((skill) => (
-                      <Badge
-                        key={skill}
-                        variant="secondary"
-                        className="px-3 py-1 text-sm font-sans bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                      >
-                        {skill}
-                      </Badge>
+                      <SkillBadge key={skill} skill={skill} />
                     ))}
                   </div>
                 </CardContent>
@@ -113,8 +108,9 @@ export default function AboutMePage() {
 
         <section className="mt-20 text-center">
           <Button size="lg" asChild className="font-sans">
-            <a href="/Dec_2_24.pdf" target="_blank" rel="noopener noreferrer">
-              <FileText className="w-4 h-4"/>View Resume
+            <a href="/Dec_22_24.pdf" target="_blank" rel="noopener noreferrer">
+              <FileText className="w-4 h-4" />
+              View Resume
             </a>
           </Button>
         </section>
