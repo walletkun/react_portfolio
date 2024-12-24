@@ -50,19 +50,19 @@
          hover:scale-150 hover:opacity-60;
 }
 
-/* Loader styles */
-.loader-container {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
 .shape {
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
   will-change: transform;
 }
 
 .glow-shape {
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.loader-container {
+  transform: translateZ(0);
 }
 
 /* Animation utilities */

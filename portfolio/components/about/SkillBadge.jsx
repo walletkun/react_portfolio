@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 
-
 const skillIcons = {
   // Languages
   Python:
@@ -80,7 +79,7 @@ const skillIcons = {
   Keras: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg",
   OpenCV:
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg",
-  CNN: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+  CNN: "/cnn_icon.png",
 };
 
 export function SkillBadge({ skill }) {
