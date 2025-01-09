@@ -41,7 +41,7 @@ export function Header({ handleNavigation }) {
   };
 
   return (
-    <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border">
+    <header className="sticky z-50 top-0  bg-background/80 backdrop-blur-sm border-b border-border">
       <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
         <button
           onClick={() => navigateTo("/")}
