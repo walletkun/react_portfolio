@@ -3,6 +3,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
+import cache from "@/utils/cache";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -40,7 +41,6 @@ function parseProjectContent(content) {
     project_time_frame: "",
     github_url: "",
   };
-
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -80,23 +80,23 @@ function parseProjectContent(content) {
   };
 }
 
- function parseSocialLinks(content) {
-   const lines = content.split("\n").map((line) => line.trim());
-   const links = {};
+function parseSocialLinks(content) {
+  const lines = content.split("\n").map((line) => line.trim());
+  const links = {};
 
-   lines.forEach((line) => {
-     if (line.startsWith("GitHub:")) {
-       links.github = line.replace("GitHub:", "").trim();
-     } else if (line.startsWith("LinkedIn:")) {
-       links.linkedin = line.replace("LinkedIn:", "").trim();
-     } else if (line.startsWith("Devpost:")) {
-       links.devpost = line.replace("Devpost:", "").trim();
-     } else if (line.startsWith("Email:")) {
-       links.email = line.replace("Email:", "").trim();
-     }
-   });
-   return links;
- }
+  lines.forEach((line) => {
+    if (line.startsWith("GitHub:")) {
+      links.github = line.replace("GitHub:", "").trim();
+    } else if (line.startsWith("LinkedIn:")) {
+      links.linkedin = line.replace("LinkedIn:", "").trim();
+    } else if (line.startsWith("Devpost:")) {
+      links.devpost = line.replace("Devpost:", "").trim();
+    } else if (line.startsWith("Email:")) {
+      links.email = line.replace("Email:", "").trim();
+    }
+  });
+  return links;
+}
 
 export async function POST(req) {
   try {
@@ -111,6 +111,15 @@ export async function POST(req) {
     const lastMessage = messages[messages.length - 1];
     const query = lastMessage.content;
 
+    // Check if the response is cached
+    const cachedResponse = cache.get(query);
+    if (cachedResponse) {
+      console.log(`Cache hit for query: ${query}`);
+      return NextResponse.json(cachedResponse);
+    }
+    else{
+      console.log(`Cache miss for query: ${query}`);
+    }
     const { projects, generalInfo, socialLinks } = await getAllContent();
     const parsedProjects = projects
       .filter((item) => item.content && item.content.includes("Project:"))
@@ -254,7 +263,7 @@ export async function POST(req) {
 
             if (originalProject) {
               return {
-                ...originalProject, 
+                ...originalProject,
                 ...project,
                 project_description: originalProject.project_description,
                 project_stack: originalProject.project_stack,
@@ -285,6 +294,9 @@ export async function POST(req) {
         },
       };
     }
+
+    // Store the response in the cache
+    cache.set(query, parsedResponse);
 
     return NextResponse.json(parsedResponse);
   } catch (error) {
