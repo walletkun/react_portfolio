@@ -1,0 +1,77 @@
+/* Updated Genie Effect Animation Styles */
+.genie-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.genie-effect {
+  position: absolute;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  will-change: transform;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+}
+
+.window-content {
+  position: relative;
+  overflow: hidden; /* Preserve any overflow for scaling */
+}
+
+@keyframes genieEffect {
+  0% {
+    transform: translateY(0) scale(1);
+    transform-origin: center bottom;
+    opacity: 1; /* Keep the content visible */
+  }
+  
+  30% {
+    transform: translateY(10%) scale(0.9);
+    transform-origin: center bottom;
+    opacity: 0.9; /* Slightly fade */
+  }
+  
+  60% {
+    transform: translateY(25%) scale(0.75);
+    transform-origin: center bottom;
+    opacity: 0.7; /* More fading */
+  }
+  
+  80% {
+    transform: translateY(40%) scale(0.5);
+    transform-origin: center bottom;
+    opacity: 0.5; /* Continued fade */
+  }
+  
+  100% {
+    transform: translateY(var(--target-y)) scale(0.3);
+    transform-origin: center bottom;
+    opacity: 0; /* Fully invisible at the end */
+  }
+}
+
+.genie-minimizing {
+  animation: genieEffect 0.5s cubic-bezier(0.4, 0, 0.3, 1) forwards;
+}
+
+@keyframes genieRestore {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.window-restoring {
+  animation: genieRestore 0.3s ease-out forwards;
+}
