@@ -2,7 +2,7 @@
 
 This is **my personal portfolio**, designed to simulate the look and feel of macOS, built using modern web technologies like **React**, **Zustand**, **UnoCSS**, **Vite**, and **TypeScript**.
 
-> 🖥️ Live Demo: [portfolio.zxh.me](https://portfolio.zxh.me) *(customize with your domain)*
+> 🖥️ Live Demo: [walletkun.com](https://www.walletkun.com)
 
 The design and foundational structure are heavily inspired by the amazing work of [Renovamen](https://github.com/Renovamen), whose open-source project [playground-macos](https://github.com/Renovamen/playground-macos) served as the original base.
 
