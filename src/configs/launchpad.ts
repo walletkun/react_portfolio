@@ -33,9 +33,9 @@ const launchpadApps: LaunchpadData[] = [
   },
   {
     id: "resume",
-    title: "Résumé",
+    title: "Resume",
     img: "img/icons/launchpad/resume.svg",
-    link: "https://drive.google.com/file/d/1RsvjmKkHJlK9-bdZL8E53EOHslR29yi1/view?usp=sharing"
+    link: "https://drive.google.com/file/d/1XNxe6_5Lx20Syxbn6zbU6S2XVG0uMugj/view?usp=sharing"
   }
 ];
 
