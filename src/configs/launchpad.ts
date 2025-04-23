@@ -20,10 +20,16 @@ const launchpadApps: LaunchpadData[] = [
     link: "https://github.com/walletkun/hotdog_detector"
   },
   {
-    id: "leetcode",
+    id: "Leetcode",
     title: "Leetcode Adventure",
     img: "img/icons/launchpad/code.png",
     link: "https://github.com/walletkun/leetcode_practices"
+  },
+  {
+    id: "Guessdle",
+    title: "Guessdle",
+    img: "img/icons/launchpad/guessicon.png",
+    link: "https://guessdle.vercel.app/"
   },
   {
     id: "resume",

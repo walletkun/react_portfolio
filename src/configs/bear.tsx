@@ -67,12 +67,12 @@ const bear: BearData[] = [
         link: "https://github.com/walletkun/hotdog_detector"
       },
       {
-        id: "churn-predictor",
-        title: "Customer Churn",
-        file: "https://raw.githubusercontent.com/walletkun/churn_rate/refs/heads/main/README.md",
+        id: "guessdle",
+        title: "Guessdle",
+        file: "https://raw.githubusercontent.com/walletkun/guessdle/refs/heads/main/README.md",
         icon: "i-carbon:data-vis-4",
-        excerpt: "Predicting if you ever coming back..",
-        link: "https://github.com/walletkun/churn_rate"
+        excerpt: "Guess like you in wordle..",
+        link: "https://github.com/walletkun/guessdle"
       }
     ]
   }
