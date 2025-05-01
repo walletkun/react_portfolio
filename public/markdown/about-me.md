@@ -39,12 +39,11 @@ My journey bridges both software engineering and data science — from building 
 
 ---
 
-## 📄 [View Résumé](https://drive.google.com/file/d/1RsvjmKkHJlK9-bdZL8E53EOHslR29yi1/view?usp=sharing)
+## 📄 [View Resume](https://drive.google.com/file/d/1XNxe6_5Lx20Syxbn6zbU6S2XVG0uMugj/view?usp=sharing)
 
 ---
 
 ## ✨ Credits
-
 This portfolio is based on the beautiful [playground-macos](https://github.com/Renovamen/playground-macos) open-source portfolio template by [Renovamen](https://github.com/Renovamen). All styles and interactions were customized to match my own background and projects.  
 
 
