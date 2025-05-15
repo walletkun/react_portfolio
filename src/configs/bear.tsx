@@ -37,7 +37,7 @@ const bear: BearData[] = [
       {
         id: "alexandria-boostagram",
         title: "Alexandria",
-        file: "https://raw.githubusercontent.com/walletkun/Bookstagram/refs/heads/main/README.md",
+        file: "https://raw.githubusercontent.com/Mnajm6201/Bookstagram/refs/heads/main/README.md",
         icon: "i-material-symbols:work",
         excerpt: "Platform built for book ethuiast...",
         link: "https://github.com/walletkun/Bookstagram"
