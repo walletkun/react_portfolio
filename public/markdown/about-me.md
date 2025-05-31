@@ -39,7 +39,7 @@ My journey bridges both software engineering and data science — from building 
 
 ---
 
-## 📄 [View Resume](https://drive.google.com/file/d/1XNxe6_5Lx20Syxbn6zbU6S2XVG0uMugj/view?usp=sharing)
+## 📄 [View Resume](https://drive.google.com/file/d/1Yam9qUjFuKY1pa-y3vYQDZ4y3bM_j0-t/view?usp=sharing)
 
 ---
 
@@ -50,7 +50,6 @@ This portfolio is based on the beautiful [playground-macos](https://github.com/R
 ## Contact
 
 Contact me by:
-
 - Email: [feilinpersonal@gmail.com](mailto:feilinpersonal@gmail.com)
 - Github: [@Walletkun](https://github.com/walletkun)
 - Linkedin: [fei-lincs](https://www.linkedin.com/in/fei-lincs)

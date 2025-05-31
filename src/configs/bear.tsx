@@ -35,9 +35,9 @@ const bear: BearData[] = [
     icon: "i-octicon:repo",
     md: [
       {
-        id: "alexandria-boostagram",
+        id: "alexandria-bookstagram",
         title: "Alexandria",
-        file: "https://raw.githubusercontent.com/Mnajm6201/Bookstagram/refs/heads/main/README.md",
+        file: "https://raw.githubusercontent.com/Walletkun/Alexandria/refs/heads/main/README.md",
         icon: "i-material-symbols:work",
         excerpt: "Platform built for book ethuiast...",
         link: "https://github.com/walletkun/Bookstagram"
